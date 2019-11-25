@@ -16,14 +16,19 @@ Route::get('/', function () {
 });
 
 //front
-Route::get('/', 'QuestionaryController@explanation');
-Route::get('/quesitonary', 'QuestionaryController@next1');
-Route::get('/thanks', 'QuestionaryController@next2');
-Route::get('/coupon', 'QuestionaryController@next3');
+
+Route::get('/', 'QuestionaryController@explanation');//front画面1(説明画面へ)
+
+Route::get('/quesitonary', 'QuestionaryController@next1');//front画面2(アンケート回答画面へ)
+Route::post('/questionary', 'QuestionaryController@post');
+
+Route::get('/thanks', 'QuestionaryController@next2');//front画面3(お礼画面へ)
+Route::get('/coupon', 'QuestionaryController@next3');//front画面4(クーポン画面へ)
+
 
 //admin
-Route::get('/admin','QuestionaryController@index');
-Route::get('/admin/extraction', 'QuestionaryController@extraction');
+Route::get('/admin','QuestionaryController@index')->middleware('auth');//admin画面1
+Route::get('/admin/extraction', 'QuestionaryController@extraction')->middleware('auth');//admin画面2
 
 
 
@@ -70,3 +75,6 @@ Route::get('/admin/extraction', 'QuestionaryController@extraction');
 
 // //prifiles_front
 // Route::get('profile', 'ProfileController@index');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

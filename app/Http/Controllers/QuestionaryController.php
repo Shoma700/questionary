@@ -18,6 +18,42 @@ class QuestionaryController extends Controller
         return view('questionary.questionary');
     }
     
+    public function post(Request $request)
+    {
+        $this->varidate($request, Questionary::$rules);
+        $questionary = new Questioanry;
+        $form = $request->all();
+        dump($request);
+        dump($form);
+        unset($form['_token']);
+        dump($form);
+        $questionary->fill($form);
+        $questionary->save();
+        // //varidate関数を使用して、&requestの中の情報にProfileモデルの$rulesに当てはまるものがあれば適用する
+        // $this->validate($request, Profile::$rules);
+        // //$profilesという変数をProfileモデルの新規レコードとする
+        // $profile = new Profile;
+        // //$formという変数に$requestのすべてを代入する（'name','gender','hobby','introduction','_token'）
+        // $form = $request->all();
+        // //dump($request);
+        // //dump($form);        
+        // //送信されてきた$form内の'_token'を削除する
+        // unset($form['_token']);
+        // //データベースに保存する
+        // $profile->fill($form);
+        // $profile->save();
+        // //dump($form);     
+        // return redirect('admin/profile/create');
+    // return view('questionary.thanks');
+    }
+        
+    public function create(Request $request)
+    {
+        
+        return view('questionary.thanks');
+    }
+    
+    
     public function next2(Request $requset)
     {
         return view('questionary.thanks');
@@ -39,7 +75,10 @@ class QuestionaryController extends Controller
     {
         return view('admin.extraction');
     }
-    
+    // public function adddata(Requuest $request)
+    // {
+
+    // }
     
     
 }

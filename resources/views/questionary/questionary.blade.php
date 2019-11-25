@@ -7,14 +7,13 @@
     　　<div>
             <form action="{{ action('QuestionaryController@post') }}" method="post" enctype="multipart/form-data">
                 @csrf
-                    
-                    @if (count($errors) > 0)
-                        <ul>
-                            @foreach($errors->all() as $e)
-                                <li>{{ $e }}</li>
-                            @endforeach
-                        </ul>
-                    @endif
+                @if (count($errors) > 0)
+                    <ul>
+                        @foreach($errors->all() as $e)
+                            <li>{{ $e }}</li>
+                        @endforeach
+                    </ul>
+                @endif
                 <h2>アンケート回答</h2>
                 <h5>すべての質問にお答えください</h5>
                 <div class="form-group">

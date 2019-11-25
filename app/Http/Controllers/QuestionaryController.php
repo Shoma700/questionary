@@ -26,13 +26,15 @@ class QuestionaryController extends Controller
     
     public function post(Request $request)
     {
+        //バリデーションでエラーがあると、＄errorsにエラー内容を格納して、全画面に自動でリダイレクトする
+        //エラーがなければ通過する
         $this->validate($request, Questionary::$rules);
         $questionary = new Questionary;
         $form = $request->all();
-        dump($request);
-        dump($form);
+        //dump($request);
+        //dump($form);
         unset($form['_token']);
-        dump($form);
+        //dump($form);
         $questionary->fill($form);
         $questionary->save();
         
@@ -64,9 +66,12 @@ class QuestionaryController extends Controller
     
     
     //admin
-    public function index(Request $request)
+    public function index()
     {
-        return view('admin.questionary');
+        //Questionaryモデルで操作する、questionariesテーブルに格納されているすべてのレコードを
+        //変数$listsに格納する
+        $lists = Questionary::all();
+        return view('admin.top', ['lists' => $lists]);
     }
     public function extraction(Request $request)
     {

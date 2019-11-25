@@ -8,6 +8,26 @@
                 <h2>アンケート管理者画面</h2>
             </div>
                 <h5>テーブル</h5>
+                <table class="text-center">
+                    <thead class="theaed-default">
+                        <tr>
+                            <th width="15%">ID</th>
+                            <th width="15%">満足度</th>
+                            <th width="30%">満足度の原因</th>
+                            <th width="40%">コメント</th>
+                        </tr>
+                        @if ($lists != NULL)
+                            @foreach ($lists as $i)
+                                <tr>
+                                    <td>{{ $i->id }}</td>
+                                    <td>{{ $i->q1 }}</td>
+                                    <td>{{ $i->q2 }}</td>
+                                    <td>{{ $i->q3 }}</td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </thead>
+                </table>
         　　<div>
                 <h5>ページネーション機能を入れる</h5>
                 <h5>CSV出力機能を入れる</h5>

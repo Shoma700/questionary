@@ -20,9 +20,9 @@ Route::get('/', function () {
 Route::get('/', 'QuestionaryController@explanation');//front画面1(説明画面へ)
 
 Route::get('/quesitonary', 'QuestionaryController@next1');//front画面2(アンケート回答画面へ)
-Route::post('/questionary', 'QuestionaryController@post');
 
 Route::get('/thanks', 'QuestionaryController@next2');//front画面3(お礼画面へ)
+Route::post('/thanks', 'QuestionaryController@post');//dbへ保存後、front画面3(お礼画面へ)
 Route::get('/coupon', 'QuestionaryController@next3');//front画面4(クーポン画面へ)
 
 

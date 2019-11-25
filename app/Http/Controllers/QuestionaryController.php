@@ -1,27 +1,33 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+
+use App\Questionary;
 
 class QuestionaryController extends Controller
 {
     
     //front
-    public function explanation(Request $request)
+    public function explanation()
     {
         return view('questionary.explanation');
     }
     
-    public function next1(Request $request)
+    public function next1()
     {
         return view('questionary.questionary');
     }
     
+    public function next2()
+    {
+        return view('questionary.thanks');
+    }
+    
     public function post(Request $request)
     {
-        $this->varidate($request, Questionary::$rules);
-        $questionary = new Questioanry;
+        $this->validate($request, Questionary::$rules);
+        $questionary = new Questionary;
         $form = $request->all();
         dump($request);
         dump($form);
@@ -29,6 +35,7 @@ class QuestionaryController extends Controller
         dump($form);
         $questionary->fill($form);
         $questionary->save();
+        
         // //varidate関数を使用して、&requestの中の情報にProfileモデルの$rulesに当てはまるものがあれば適用する
         // $this->validate($request, Profile::$rules);
         // //$profilesという変数をProfileモデルの新規レコードとする
@@ -44,21 +51,11 @@ class QuestionaryController extends Controller
         // $profile->save();
         // //dump($form);     
         // return redirect('admin/profile/create');
-    // return view('questionary.thanks');
-    }
-        
-    public function create(Request $request)
-    {
-        
         return view('questionary.thanks');
     }
-    
-    
-    public function next2(Request $requset)
-    {
-        return view('questionary.thanks');
-    }
-    public function next3(Request $request)
+        
+
+    public function next3()
     {
         return view('questionary.coupon');
     }

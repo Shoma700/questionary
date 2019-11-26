@@ -11,7 +11,11 @@ class QuestionaryController extends Controller
     //front
     public function explanation()
     {
-        return view('questionary.explanation');
+        //configフォルダ直下にあるjapan_area.phpの情報(配列)を取得し、変数に格納する
+        $japan_area = config('japan_area');
+        //変数をviewに配列の形で渡す（これは作法）
+        //dd($japan_area);
+        return view('questionary.explanation', ['japan_area' => $japan_area]);
     }
     
     public function next1()

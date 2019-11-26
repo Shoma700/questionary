@@ -12,19 +12,28 @@
             <div>
                 <h5>ご利用店舗、レシート番号を入力して回答へお進みください</h5>
             </div>
-            <div>
-                <h5>・【任意入力】都道府県プルダウン</h5>
-            </div>
-            <div>
-                <h5>・【必須入力】店舗名プルダウン(上記の都道府県プルダウンと連動して店舗が絞られる)</h5>
+            <form>
+                <div>
+                    <h5>・【任意入力】都道府県プルダウン</h5>
+                    @if (count($japan_area) > 0)
+                    <select>
+                        @foreach($japan_area as $area => $name)
+                            <option value="{{ $area }}">$name</option>
+                        @endforeach
+                    </select>
+                    @endif
                 </div>
-            <div>
-                <h5>・【必須入力】レシート番号(6桁手入力)</h5>
-        　　</div>
-        　　<div>
-        　　    <h5>上記必須入力をチェックし、OKなら進む、NGならエラー表示しリダイレクト</h5>
-                <a href="{{ action('QuestionaryController@next1') }}" role="button">回答へ進む</a>
-            </div>
+                <div>
+                    <h5>・【必須入力】店舗名プルダウン(上記の都道府県プルダウンと連動して店舗が絞られる)</h5>
+                    </div>
+                <div>
+                    <h5>・【必須入力】レシート番号(6桁手入力)</h5>
+            　　</div>
+            　　<div>
+            　　    <h5>上記必須入力をチェックし、OKなら進む、NGならエラー表示しリダイレクト</h5>
+                    <a href="{{ action('QuestionaryController@next1') }}" role="button">回答へ進む</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>

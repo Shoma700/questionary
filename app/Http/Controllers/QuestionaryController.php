@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Questionary;
+use App\Entrance;
 
 class QuestionaryController extends Controller
 {
-    
     //front
     public function explanation()
     {
@@ -15,7 +15,10 @@ class QuestionaryController extends Controller
         $japan_area = config('japan_area');
         //変数をviewに配列の形で渡す（これは作法）
         //dd($japan_area);
-        return view('questionary.explanation', ['japan_area' => $japan_area]);
+        $store = config('store');
+        //dd($store);
+        
+        return view('questionary.explanation', ['japan_area' => $japan_area, 'store' => $store]);
     }
     
     public function next1()
@@ -26,6 +29,18 @@ class QuestionaryController extends Controller
     public function next2()
     {
         return view('questionary.thanks');
+    }
+    
+    public function post1(Request $request)
+    {
+        //dd($request);
+        $this->validate($request, Entrance::$rules);
+        $entrance = new Entrance;
+        $form =$request->all();
+        unset($form['_token']);
+        $entrance->fill($form);
+        $entrance->save();
+        return view('questionary.questionary');
     }
     
     public function post(Request $request)

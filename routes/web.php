@@ -18,6 +18,7 @@ Route::get('/', function () {
 //front
 
 Route::get('/', 'QuestionaryController@explanation');//front画面1(説明画面へ)
+Route::post('/', 'QuestionaryController@post1');//dbへ保存後front画面2(アンケート回答画面へ)
 
 Route::get('/quesitonary', 'QuestionaryController@next1');//front画面2(アンケート回答画面へ)
 

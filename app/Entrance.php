@@ -12,9 +12,12 @@ class Entrance extends Model
         'n2' => 'required',
         'n3' => 'required'
     );
+    
+    // public function hasone()
+    // {
+    //     return $this->hasOne('App\Questionary');
+    // }
 }
-
-
 // class Questionary extends Model
 // {
 //     protected $guarded = array('id');

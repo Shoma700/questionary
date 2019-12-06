@@ -8,12 +8,35 @@
                 <h2>アンケート管理者画面</h2>
             </div>
                 <h5>テーブル</h5>
-                <table class="text-center">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="20%">都道府県CD</th>
+                            <th width="15%">店舗CD</th>
+                            <th width="30%">レシートNO</th>
+                        </tr>
+                        @if ($e_lists != NULL)
+                            @foreach ($e_lists as $e)
+                            <tr>
+                                <td>{{ $e->n1 }}</td>
+                                <td>{{ $e->n2 }}</td>
+                                <td>{{ $e->n3 }}</td>
+                            </tr>
+                            @endforeach
+                        @endif
+                    </thead>
+                </table>
+                {{ $e_lists->links() }}
+                <hr color="#c0c0c0">
+                <table>
                     <thead class="theaed-default">
                         <tr>
-                            <th width="15%">ID</th>
-                            <th width="15%">満足度</th>
-                            <th width="30%">満足度の原因</th>
+                            <th width="5%">ID</th>
+                            <th width="10%">都道府県CD</th>
+                            <th width="10%">店舗CD</th>
+                            <th width="15%">レシートNO</th>
+                            <th width="10%">満足度</th>
+                            <th width="20%">満足度の原因</th>
                             <th width="40%">コメント</th>
                         </tr>
                         @if ($lists != NULL)
@@ -28,6 +51,7 @@
                         @endif
                     </thead>
                 </table>
+                {{ $lists->links() }}
         　　<div>
                 <h5>ページネーション機能を入れる</h5>
                 <h5>CSV出力機能を入れる</h5>

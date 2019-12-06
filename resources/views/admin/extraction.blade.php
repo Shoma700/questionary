@@ -15,7 +15,7 @@
                 
                  <div>
                     <hr color="#c0c0c0">
-                    <a href="" role="button">CSV出力</a>
+                    <a href="{{ action('QuestionaryController@csv') }}" role="button">CSV出力</a>
                     <hr color="#c0c0c0">
                 </div>               
                 

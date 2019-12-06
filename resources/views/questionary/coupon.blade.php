@@ -12,6 +12,7 @@
         　　</div>  
             <div>
                 <h5>★クーポンBCD</h5>
+                <p>{!! DNS1D::getBarcodeHTML("1300013501754","EAN13") !!}</p>
             </div>
             <div>
                 <a href="{{ action('QuestionaryController@explanation') }}" role="button">アンケートトップへ</a>

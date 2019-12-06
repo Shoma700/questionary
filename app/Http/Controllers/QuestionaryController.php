@@ -56,22 +56,6 @@ class QuestionaryController extends Controller
         //dump($form);
         $questionary->fill($form);
         $questionary->save();
-        
-        // //varidate関数を使用して、&requestの中の情報にProfileモデルの$rulesに当てはまるものがあれば適用する
-        // $this->validate($request, Profile::$rules);
-        // //$profilesという変数をProfileモデルの新規レコードとする
-        // $profile = new Profile;
-        // //$formという変数に$requestのすべてを代入する（'name','gender','hobby','introduction','_token'）
-        // $form = $request->all();
-        // //dump($request);
-        // //dump($form);        
-        // //送信されてきた$form内の'_token'を削除する
-        // unset($form['_token']);
-        // //データベースに保存する
-        // $profile->fill($form);
-        // $profile->save();
-        // //dump($form);     
-        // return redirect('admin/profile/create');
         return view('questionary.thanks');
     }
         
@@ -85,20 +69,65 @@ class QuestionaryController extends Controller
     
     
     //admin
-    public function index()
+    public function index(Request $request)
     {
+        //csv();
         //Questionaryモデルで操作する、questionariesテーブルに格納されているすべてのレコードを
         //変数$listsに格納する
-        $lists = Questionary::all();
-        return view('admin.top', ['lists' => $lists]);
+        //$lists = Questionary::all();
+        $lists = Questionary::paginate(5);
+        //$e_lists = Entrance::all();
+        $e_lists = Entrance::paginate(5);
+        return view('admin.top', ['lists' => $lists, 'e_lists' => $e_lists]);
     }
+    
     public function extraction(Request $request)
     {
         return view('admin.extraction');
     }
-    // public function adddata(Requuest $request)
-    // {
 
+
+
+    public function csv(Request $request)
+    {
+        $callbacks = Questionary::csv_export();
+        return response()->stream($callbacks[0], 200, $callbacks[1]);
+        //return redirect('admin/extraction/');
+    }
+
+        //↑↑↑
+    // public function csv(Request $request)
+    // {
+    // $headers = array(
+    //   "Content-type" => "text/csv",
+    //   "Content-Disposition" => "attachment; filename=file.csv",
+    //   "Pragma" => "no-cache",
+    //   "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+    //   "Expires" => "0"
+    // );
+    // $callback = function() {
+    //   $handle = fopen('php://output', 'w');
+    //   $columns = [
+    //     'q1',
+    //     'q2',
+    //     'q3',
+    //   ] ;
+    //   mb_convert_variables('SJIS-win', 'UTF-8', $columns);
+    //   fputcsv($handle, $columns);
+    //   $users = Questionary::all();
+    //   foreach ($users as $user) {
+    //     $csv = [
+    //       $user->q1,
+    //       $user->q2,
+    //       $user->q3,
+    //     ] ;
+    //     mb_convert_variables('SJIS-win', 'UTF-8', $csv);
+    //     fputcsv($handle, $csv);
+    //   }
+    //   fclose($handle);
+    // };
+    // return response()->stream($callback, 200, $headers);
+    // return redirect('admin/extraction/');
     // }
     
     

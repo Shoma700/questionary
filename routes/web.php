@@ -30,7 +30,7 @@ Route::get('/coupon', 'QuestionaryController@next3');//front画面4(クーポン
 //admin
 Route::get('/admin','QuestionaryController@index')->middleware('auth');//admin画面1
 Route::get('/admin/extraction', 'QuestionaryController@extraction')->middleware('auth');//admin画面2
-
+Route::get('/admin/csv', 'QuestionaryController@csv')->middleware('auth');
 
 
 //【参考】mynews web.php----------------------------------------------------------------

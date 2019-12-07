@@ -74,10 +74,12 @@ class QuestionaryController extends Controller
         //csv();
         //Questionaryモデルで操作する、questionariesテーブルに格納されているすべてのレコードを
         //変数$listsに格納する
-        //$lists = Questionary::all();
-        $lists = Questionary::paginate(5);
+        //$lists = Questionary::all(); ["*"], 'userpage'
+        $lists = Questionary::paginate(5, ["*"], 'lists')
+                ->appends(["e_lists" => $request->input('e_lists'), "a" => 3]);
         //$e_lists = Entrance::all();
-        $e_lists = Entrance::paginate(5);
+        $e_lists = Entrance::paginate(5, ["*"], 'e_lists')
+                ->appends(["lists" => $request->input('lists'), "a" => 3]);
         return view('admin.top', ['lists' => $lists, 'e_lists' => $e_lists]);
     }
     

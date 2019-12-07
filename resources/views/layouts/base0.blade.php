@@ -13,7 +13,7 @@
         <title>@yield('title')</title>
         <!-- ★Scripts(コンパイル不要プログラム) -->
         <!-- laravelで用意されているJavaScriptの取込 -->
-        <script src"{{ secure_asset('js/app/.js') }}" defer></script>
+        <script src"{{ secure_asset('js/app.js') }}" defer></script>
 
         <!-- ★Fonts(style??) -->
         <!-- DNSプリフェッチ･･･WEBブラウザやアプリにおいて、リンクで指定されたドメイン名を事前に名前解決すること 速度向上 -->

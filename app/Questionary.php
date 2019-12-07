@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Questionary extends Model
 {
     protected $guarded = array('id');
-    
     public static $rules = array(
         'q1' => 'required',
         'q2' => 'required',

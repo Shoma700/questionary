@@ -3,8 +3,17 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
+//↓共通関数用のクラスを作成
+//app直下にlibsディレクトリとBaseClass.phpファイルを作成
+//プロジェクト直下のcomposer.jsonファイルに名前空間(ディレクトリ)を登録
+//コマンドでオートローダーに反映：php composer dump-autoload
+//config/app.php にエイリアスとして追加
+//↓use
+use app\libs\BaseClass;
+
 use App\Questionary;
 use App\Entrance;
+
 
 class QuestionaryController extends Controller
 {
@@ -17,8 +26,8 @@ class QuestionaryController extends Controller
         //dd($japan_area);
         $store = config('store');
         //dd($store);
-        
-        return view('questionary.explanation', ['japan_area' => $japan_area, 'store' => $store]);
+        $test = BaseClass::test();
+        return view('questionary.explanation', ['japan_area' => $japan_area, 'store' => $store, 'test' => $test]);
     }
     
     public function next1()

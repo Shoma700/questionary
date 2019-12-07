@@ -5,7 +5,7 @@
 　　<div class="row">
         <div class="offset-2">
         　　<div>
-        　　    
+                <h2>{{ $test }}</h2>
         　　      @if (count($errors) > 0)
                     <ul>
                         @foreach($errors->all() as $e)

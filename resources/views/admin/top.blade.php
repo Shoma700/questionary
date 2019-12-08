@@ -7,7 +7,7 @@
         　　<div>
                 <h2>アンケート管理者画面</h2>
             </div>
-                <h5>テーブル</h5>
+                <h5>テーブル1</h5>
                 <table>
                     <thead>
                         <tr>
@@ -28,13 +28,11 @@
                 </table>
                 {{ $e_lists->links() }}
                 <hr color="#c0c0c0">
+                <h5>テーブル2</h5>
                 <table>
                     <thead class="theaed-default">
                         <tr>
                             <th width="5%">ID</th>
-                            <th width="10%">都道府県CD</th>
-                            <th width="10%">店舗CD</th>
-                            <th width="15%">レシートNO</th>
                             <th width="10%">満足度</th>
                             <th width="20%">満足度の原因</th>
                             <th width="40%">コメント</th>
@@ -52,6 +50,34 @@
                     </thead>
                 </table>
                 {{ $lists->links() }}
+                <hr color="#c0c0c0">
+                <h5>テーブル3(1+2)</h5>
+                <table>
+                    <thead class="theaed-default">
+                        <tr>
+                            <th width="5%">ID</th>
+                            <th width="10%">都道府県CD</th>
+                            <th width="10%">店舗CD</th>
+                            <th width="15%">レシートNO</th>
+                            <th width="10%">満足度</th>
+                            <th width="20%">満足度の原因</th>
+                            <th width="40%">コメント</th>
+                        </tr>
+                        @if ($all_lists != NULL)
+                            @foreach ($all_lists as $al)
+                                <tr>
+                                    <td>{{ $al->id }}</td>
+                                    <td>{{ $al->n1 }}</td>
+                                    <td>{{ $al->n2 }}</td>
+                                    <td>{{ $al->n3 }}</td>
+                                    <td>{{ $al->q1 }}</td>
+                                    <td>{{ $al->q2 }}</td>
+                                    <td>{{ $al->q3 }}</td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </thead>
+                </table>
         　　<div>
                 <h5>ページネーション機能を入れる</h5>
                 <h5>CSV出力機能を入れる</h5>

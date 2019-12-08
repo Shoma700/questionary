@@ -13,11 +13,21 @@ class Entrance extends Model
         'n3' => 'required'
     );
     
+    //EntranceモデルとQuestionaryモデルを「１対１」で紐づける メソッド名は単数形　主テーブル側
+    public function questionary()
+    {
+        // Questionaryモデルのデータを引っ張ってくる
+        return $this->hasone('App\Questionary','entrance_id');
+    }
+}
+    
+    
+    
     // public function hasone()
     // {
     //     return $this->hasOne('App\Questionary');
     // }
-}
+
 // class Questionary extends Model
 // {
 //     protected $guarded = array('id');

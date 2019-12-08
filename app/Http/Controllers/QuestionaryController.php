@@ -89,7 +89,20 @@ class QuestionaryController extends Controller
         //$e_lists = Entrance::all();
         $e_lists = Entrance::paginate(5, ["*"], 'e_lists')
                 ->appends(["lists" => $request->input('lists'), "a" => 3]);
-        return view('admin.top', ['lists' => $lists, 'e_lists' => $e_lists]);
+        //↑pagination 2つ独立して動作の例、appends中の"a" => 3は無意味(3つ以上のpaginationするときはこの要領でやる)
+        
+        
+        //テーブルの統合の例 join
+        //事前にリレーションしてなくても動作した
+        //-----------------------主TB名
+        $all_lists = \DB::table('entrances')
+        //---------------従TB名---------主TB名.カラム-------従TB名.カラム
+                ->join('questionaries','entrances.id','=','questionaries.entrance_id')
+                ->get();
+        //dd($all_lists);
+        
+        return view('admin.top', ['lists' => $lists, 'e_lists' => $e_lists, 'all_lists' => $all_lists]);
+        
     }
     
     public function extraction(Request $request)

@@ -13,6 +13,15 @@ class Questionary extends Model
         'q3' => 'required'
         );
     
+    //QuestionaryモデルとEntranceモデルを「１対１」で紐づける メソッド名は単数形　従テーブル側
+    public function entrance()
+    {
+        // Entranceモデルのデータを引っ張ってくる
+        return $this->belongsto('App\Entrance','id');
+    }
+    
+    
+    
     static function csv_export()
     {
     $headers = array(

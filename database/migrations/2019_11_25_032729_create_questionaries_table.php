@@ -15,6 +15,7 @@ class CreateQuestionariesTable extends Migration
     {
         Schema::create('questionaries', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigIncrements('entrance_id');
             $table->integer('q1');
             $table->string('q2');
             $table->string('q3');

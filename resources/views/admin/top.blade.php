@@ -7,6 +7,7 @@
         　　<div>
                 <h2>アンケート管理者画面</h2>
             </div>
+            <div>
                 <h5>テーブル1</h5>
                 <table>
                     <thead>
@@ -52,6 +53,22 @@
                 {{ $lists->links() }}
                 <hr color="#c0c0c0">
                 <h5>テーブル3(1+2)</h5>
+                
+                <div class="col-md-8">
+                    <form action="{{ action('QuestionaryController@index') }}" method="get">
+                        <div class="form-group row">
+                            <label class="col-md-2"></label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="cond_name" value={{ $cond_name }}>
+                            </div>
+                            <div class="col-md-2">
+                                {{ csrf_field() }}
+                                <input type="submit" class="btn btn-primary" value="検索">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
                 <table>
                     <thead class="theaed-default">
                         <tr>
@@ -70,14 +87,15 @@
                                     <td>{{ $al->n1 }}</td>
                                     <td>{{ $al->n2 }}</td>
                                     <td>{{ $al->n3 }}</td>
-                                    <td>{{ $al->q1 }}</td>
-                                    <td>{{ $al->q2 }}</td>
-                                    <td>{{ $al->q3 }}</td>
+                                    <td>{{ $al->questionary->q1 }}</td>
+                                    <td>{{ $al->questionary->q2 }}</td>
+                                    <td>{{ $al->questionary->q3 }}</td>
                                 </tr>
                             @endforeach
                         @endif
                     </thead>
                 </table>
+            </div>
         　　<div>
                 <h5>ページネーション機能を入れる</h5>
                 <h5>CSV出力機能を入れる</h5>

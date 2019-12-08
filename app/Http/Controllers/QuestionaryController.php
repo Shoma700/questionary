@@ -76,32 +76,52 @@ class QuestionaryController extends Controller
     
     
     
-    
     //admin
     public function index(Request $request)
     {
-        //csv();
-        //Questionaryモデルで操作する、questionariesテーブルに格納されているすべてのレコードを
-        //変数$listsに格納する
-        //$lists = Questionary::all(); ["*"], 'userpage'
-        $lists = Questionary::paginate(5, ["*"], 'lists')
-                ->appends(["e_lists" => $request->input('e_lists'), "a" => 3]);
-        //$e_lists = Entrance::all();
+        $cond_name = $request->cond_name;
+        if ($cond_name != '') {
+            //検索されたら検索結果を取得する
+            $all_lists = Entrance::with(['questionary'])->where('n2', $cond_name)->get();
+            //$posts = Entrance::where('n2', $cond_name)->get();
+        } else {
+            //それ以外は全件取得する
+            $all_lists = Entrance::with(['questionary'])->get();
+            //$posts = Entrance::all();
+        }
+    //pagination
         $e_lists = Entrance::paginate(5, ["*"], 'e_lists')
-                ->appends(["lists" => $request->input('lists'), "a" => 3]);
-        //↑pagination 2つ独立して動作の例、appends中の"a" => 3は無意味(3つ以上のpaginationするときはこの要領でやる)
+                ->appends(["lists" => $request->input('lists')]);//, "all_lists" => $request->input('all_lists')]);
+        $lists = Questionary::paginate(5, ["*"], 'lists')
+                ->appends(["e_lists" => $request->input('e_lists')]);//, "all_lists" => $request->input('all_lists')]);
+        //↑pagination 2つ独立して動作の例、appends中の物を増やせばいくらでも・・・?(3つ以上のpaginationするときもこの要領でやる)
         
+    //テーブルの統合の例 join　with
+        //joinは事前にリレーションしてなくても動作した
         
-        //テーブルの統合の例 join
-        //事前にリレーションしてなくても動作した
-        //-----------------------主TB名
-        $all_lists = \DB::table('entrances')
-        //---------------従TB名---------主TB名.カラム-------従TB名.カラム
-                ->join('questionaries','entrances.id','=','questionaries.entrance_id')
-                ->get();
-        //dd($all_lists);
+        //★0
+        //$all_lists = Entrance::with(['questionary'])->get();
+
+        //★１
+        //$all_lists = Entrance::with(['questionary'])->paginate(5);
         
-        return view('admin.top', ['lists' => $lists, 'e_lists' => $e_lists, 'all_lists' => $all_lists]);
+        //★２
+        // $all_lists = Entrance::with(['questionary'])->paginate(5, ["*"], 'e_lists')
+        //         ->appends(["lists" => $request->input('lists')]);
+        // $all_lists = Entrance::with(['questionary'])->paginate(5, ["*"], 'all_lists')
+        //         ->appends(["e_lists" => $request->input('e_lists'), "lists" => $request->input('lists')]);        
+        
+        //★３
+        // //-----------------------主TB名        
+        // $all_lists = \DB::table('entrances')
+        // //----------------従TB名---------主TB名.カラム-------従TB名.カラム
+        //         ->join('questionaries','entrances.id','=','questionaries.entrance_id')
+        //         ->paginate(5, ["*"], 'all_lists')
+        //         ->appends(["e_lists" => $request->input('e_lists'), "lists" => $request->input('lists')]);
+        
+
+        return view('admin.top', ['lists' => $lists, 'e_lists' => $e_lists, 'all_lists' => $all_lists, 
+                                  'cond_name' => $cond_name]);
         
     }
     
@@ -116,7 +136,6 @@ class QuestionaryController extends Controller
     {
         $callbacks = Questionary::csv_export();
         return response()->stream($callbacks[0], 200, $callbacks[1]);
-        //return redirect('admin/extraction/');
     }
 
         //↑↑↑
